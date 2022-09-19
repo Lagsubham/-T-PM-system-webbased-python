@@ -1,0 +1,153 @@
+{% extends 'WEBAPP/CompanyDash.html' %}
+{% load static %}
+
+
+{% block JobTab %}
+
+
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Available Job</h1>
+  <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                         For more information about DataTables, please visit the <a target="_blank"
+                             href="https://datatables.net">official DataTables documentation</a>.</p> -->
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Job Details</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+
+
+        <ul class="list-group">
+          {% ifequal mssge 1 %}
+          {% for job,L_data in Joblist %}
+          <li class="list-group-item">
+            <p>
+              <a class="btn btn-primary btn-sm d-flex" data-bs-toggle="collapse"
+                href="#collapseExample{{forloop.counter}}" role="button" aria-expanded="false"
+                aria-controls="collapseExample">
+                {{job.jobTitle}}
+              </a>
+            <form action="/JobDelete/" method="post">
+              {% csrf_token %}
+              <input type="hidden" value="{{job.jobTitle}}" name="job">
+              <div class="mb-3">
+                <button type="submit" class="btn btn-sm btn-danger btn-circle" id="{{forloop.counter}}">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+
+            </form>
+            </p>
+            <div class="collapse" id="collapseExample{{forloop.counter}}">
+              <div class="card card-body">
+                <table class="table">
+
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Semester</th>
+                      <th scope="col">Average Marks</th>
+                      <th scope="col">Reject</th>
+                      <th scope="col">Accept</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for stat, data in L_data %}
+                    {% ifequal data Fdata %}
+                    <tr>
+                      <th scope="row">None</th>
+                      <td>None</td>
+                      <td>None</td>
+                      <td>None</td>
+                      <td>None</td>
+                      <td>None</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                      <th scope="row">{{forloop.counter}}</th>
+                      <td>{{data.StudentId}}</td>
+                      <td>{{data.Semester}}</td>
+                      <td>{{data.AverageMarks}}</td>
+                      {% ifequal stat 0 %}
+                      
+                      <td>
+                        <form action="/JobRjt/" method="post">
+                          {% csrf_token %}
+                          <input type="hidden" value="{{job.jobTitle}}" name="job">
+                          <input type="hidden" value="{{data.StudentId}}" name="studid">
+                          <div class="mb-3">
+                            <button type="submit" class="btn btn-sm btn-danger btn-circle" id="{{forloop.counter}}">
+                              <i class="fa fa-times"></i>
+                            </button>
+                          </div>
+
+                        </form>
+                      </td>
+                      <td>
+                        <form action="/JobAccpt/" method="post">
+                          {% csrf_token %}
+                          <input type="hidden" value="{{job.jobTitle}}" name="job">
+                          <input type="hidden" value="{{data.StudentId}}" name="studid">
+                          <div class="mb-3">
+                            <button type="submit" class="btn btn-sm btn-success btn-circle" id="{{forloop.counter}}">
+                              <i class="fa fa-check"></i>
+                            </button>
+                          </div>
+
+                        </form>
+                      </td>
+                      {% endifequal %}
+                      {% ifequal stat 1 %}
+                      <td></td>
+                      <td>Accepted</td>
+                      {% endifequal %}
+                      {% ifequal stat 2 %}
+                      <td>Rejected</td>
+                      <td></td>
+                      {% endifequal %}
+                    </tr>
+                    {% endifequal %}
+                    {% endfor %}
+
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+          {% else %}
+          <li class="list-group-item">
+            <h4>No Jobs offerd by your company</h4>
+          </li>
+          {% endifequal %}
+        </ul>
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+
+
+
+
+
+{% endblock %}

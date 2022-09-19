@@ -1,0 +1,94 @@
+{% extends 'WEBAPP/StudentDashBase.html' %}
+{% load static %}
+
+
+ {% block JobTab %}
+
+
+                 <div class="container-fluid">
+ 
+                     <!-- Page Heading -->
+                     <h1 class="h3 mb-2 text-gray-800">Training Details</h1>
+                     
+                     <!-- DataTales Example -->
+                     <div class="card shadow mb-4">
+                         <div class="card-header py-3">
+                             <h6 class="m-0 font-weight-bold text-primary">Available Training for you</h6>
+                         </div>
+                         <div class="card-header py-3">
+                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search..">
+                        </div> 
+                         <div class="card-body">
+                             <div class="table-responsive">
+                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                     <thead>
+                                         <tr>
+                                             <th>Title</th>
+                                             <th>DescripTion</th>
+                                             <th>Criteria</th>
+                                             <th>Marks</th>
+                                             <th>Company</th>
+                                             <th>Apply</th>
+                                         </tr>
+                                     </thead>
+                                     <!-- <tfoot>
+                                         <tr>
+                                             <th>Name</th>
+                                             <th>Position</th>
+                                             <th>Office</th>
+                                             <th>Age</th>
+                                             <th>Start date</th>
+                                             <th>Salary</th>
+                                         </tr>
+                                     </tfoot> -->
+                                     <tbody>
+                                        {% ifequal Jobs 0 %}
+                                        <tr>
+                                            <td>No Training Available</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        {% else %}
+                                         {% for Train in Trainlist %}
+                                         <tr>
+                                             <td>{{Train.TrainTitle}}</td>
+                                             <td>{{Train.TrainDesc}}</td>
+                                             <td>Sem : {{Train.TrainCrit}}</td>
+                                             <td>{{Train.TrainMarks}}%</td>
+                                             <td><a href="">{{Train.Company}}</a></td>
+                                             <td>
+                                                <form action="/TrainApply/" method="post">
+                                                    {% csrf_token %}
+                                                <input type="hidden" value="{{Train.TrainTitle}}" name="train">
+                                                <div class="mb-3">
+                                                    <button type="submit" class="btn btn-success btn-circle"  id="{{forloop.counter}}">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                </div>
+                                        
+                                            </form>
+                                             </td>
+                                         </tr>
+                                         {% endfor %}
+                                         {% endifequal %}
+                                     </tbody>
+                                 </table>
+                             </div>
+                         </div>
+                     </div>
+ 
+                 </div>
+                 <!-- /.container-fluid -->
+ 
+             </div>
+             <!-- End of Main Content -->
+ 
+
+
+
+
+
+ {% endblock %}  

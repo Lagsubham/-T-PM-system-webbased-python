@@ -1,0 +1,101 @@
+{% extends 'WEBAPP/CompanyDash.html' %}
+{% load static %}
+
+
+ {% block JobTab %}
+ {% ifequal Status 1 %}
+ <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Hoorah!</strong> you have successfully created a Training to check please go to <a href="/CompanyDash/">Dashboard</a> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endifequal %}
+  {% ifequal Status 2 %}
+ <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Sorry!</strong> failed to create the Training
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endifequal %}
+
+
+                 <div class="container-fluid">
+ 
+                     <!-- Page Heading -->
+                     <h1 class="h3 mb-2 text-gray-800">Create Taining</h1>
+                     <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                         For more information about DataTables, please visit the <a target="_blank"
+                             href="https://datatables.net">official DataTables documentation</a>.</p> -->
+ 
+                     <!-- DataTales Example -->
+                     <div class="card shadow mb-4">
+                         <div class="card-header py-3">
+                             <h6 class="m-0 font-weight-bold text-primary">Training Details</h6>
+                         </div>
+                         <div class="card-body">
+                             <div class="table-responsive">
+                                <form action="/CreateTrain/" method="post"  enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="container">
+                                    <h1> Please Create a Training</h1>
+                                    <div class="container">
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Training Title</label>
+                                            <input type="text" name="TrainTitle" class="form-control" id="exampleFormControlInput1" placeholder="XYZ" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Training DescripTion</label>
+                                            <input type="text"  name="TrainDesc" class="form-control" id="exampleFormControlInput1" placeholder="XYZ" required>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <select class="form-select" id="inputGroupSelect02" required  name="TrainCrit">
+                                              <option selected>Choose...</option>
+                                              <option value="1">1</option>
+                                              <option value="2">2</option>
+                                              <option value="3">3</option>
+                                              <option value="4">4</option>
+                                              <option value="5">5</option>
+                                              <option value="6">6</option>
+                                              <option value="7">7</option>
+                                              <option value="8">8</option>
+                                              <option value="9">Passout</option>
+                                            </select>
+                                            <label class="input-group-text" for="inputGroupSelect02">Semester</label>
+                                          </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Average Marks in %</label>
+                                            <input type="number"  name="TrainMarks" class="form-control" id="exampleFormControlInput1" placeholder="80%" required>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <select class="form-select" id="inputGroupSelect02" required  name="TrainDept">
+                                              <option selected>Choose...</option>
+                                              <option value="IT">IT</option>
+                                              <option value="CSE">CSE</option>
+                                              <option value="MECHANICAL">MECHANICAL</option>
+                                              <option value="ELECTRICAL">ELECTRICAL</option>
+                                              <option value="CIVIL">CIVIL</option>
+                                              <option value="INSTRUMENTATION">INSTRUMENTATION</option>
+                                            </select>
+                                            <label class="input-group-text" for="inputGroupSelect02">Department</label>
+                                          </div>
+                                      
+                                    </div>  
+                                    <div class="mb-3">
+                                        <button type="submit" class="btn btn-outline-success">Create</button>
+                                    </div>
+                            
+                                </form>
+                             </div>
+                         </div>
+                     </div>
+ 
+                 </div>
+                 <!-- /.container-fluid -->
+ 
+             </div>
+             <!-- End of Main Content -->
+ 
+
+
+
+
+
+ {% endblock %}  

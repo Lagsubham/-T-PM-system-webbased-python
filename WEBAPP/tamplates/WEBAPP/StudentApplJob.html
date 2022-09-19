@@ -1,0 +1,83 @@
+{% extends 'WEBAPP/StudentDashBase.html' %}
+{% load static %}
+
+
+ {% block JobTab %}
+
+
+                 <div class="container-fluid">
+ 
+                     <!-- Page Heading -->
+                     <h1 class="h3 mb-2 text-gray-800">Jobs</h1>
+                     
+                     <!-- DataTales Example -->
+                     <div class="card shadow mb-4">
+                         <div class="card-header py-3">
+                             <h6 class="m-0 font-weight-bold text-primary">Applied Jobs</h6>
+                         </div>
+                         <div class="card-body">
+                             <div class="table-responsive">
+                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                     <thead>
+                                         <tr>
+                                             <th>Title</th>
+                                             <th>DescripTion</th>
+                                             <th>Criteria</th>
+                                             <th>Marks</th>
+                                             <th>Company</th>
+                                             <th>Applied Date</th>
+                                             <th>Status</th>
+                                         </tr>
+                                     </thead>
+                                     
+                                     <tbody>
+                                        {% ifequal mssg 1 %}
+                                        <tr>
+                                            <td>No Jobs Applied</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        {% else %}
+                                         {% for job,stat,appdt in data %}
+                                         <tr>
+                                             <td>{{job.jobTitle}}</td>
+                                             <td>{{job.jobDesc}}</td>
+                                             <td>Sem : {{job.JobCrit}}</td>
+                                             <td>{{job.JobMarks}}%</td>
+                                             <td><a href="">{{job.Company}}</a></td>
+                                             <td>{{appdt}}</td>
+                                             {% ifequal stat 0 %}
+                                             <td>NA</td>
+                                             {% endifequal %}
+                                             {% ifequal stat 1 %}
+                                             <td>Accepted</td>
+                                             {% endifequal %}
+                                             {% ifequal stat 2 %}
+                                             <td>Rejected</td>
+                                             {% endifequal %}
+                                         </tr>
+                                         {% endfor %}
+                                         {% endifequal %}
+                                     </tbody>
+                                 </table>
+                             </div>
+                         </div>
+                     </div>
+ 
+                 </div>
+                 <!-- /.container-fluid -->
+ 
+             </div>
+             <!-- End of Main Content -->
+ 
+
+
+
+
+
+ {% endblock %}  
